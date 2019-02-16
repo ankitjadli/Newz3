@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     app:cardCornerRadius="0dp"
-    android:layout_margin="7dp"
     android:elevation="90dp">
 
     <RelativeLayout
@@ -18,15 +17,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/post_title"
             android:text="POST TITLE"
-            android:layout_marginTop="10dp"
             android:layout_below="@+id/post_image"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="10dp"
-            android:paddingStart="5dp"
-            android:paddingLeft="5dp"
-            android:paddingEnd="5dp"
-            android:paddingRight="5dp"
+            android:layout_margin="10dp"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:textColor="#000000"/>
 
         <TextView
@@ -35,10 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/post_title"
             android:layout_marginTop="10dp"
-            android:paddingEnd="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingStart="5dp"
+            android:layout_margin="10dp"
             android:text="DESCRIPTION"
             android:textColor="#000000" />
 
@@ -47,7 +38,7 @@
             android:layout_height="300dp"
             android:scaleType="centerCrop"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
+            android:layout_margin="3dp"
             android:id="@+id/post_image"/>
 
     </RelativeLayout>

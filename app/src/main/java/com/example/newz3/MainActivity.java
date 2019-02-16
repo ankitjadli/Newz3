@@ -35,10 +35,17 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     DatabaseReference mdatabse;
     private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<Integer> mimages = new ArrayList<>();
     private RecyclerViewPager muserslist;
     private View mViewmain;
     int[] mPlaceList;
-
+    int hindi = 1;
+    int world = 0;
+    int tech = 1 ;
+    int sports = 0;
+    int politics =0;
+    int btown=0;
+    private DatabaseReference mcategory;
     private RecyclerView mPeopleRV;
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<News, MainActivity.NewsViewHolder> mPeopleRVAdapter;
@@ -85,17 +92,90 @@ public class MainActivity extends AppCompatActivity {
         mPeopleRV.setAdapter(mPeopleRVAdapter);
 
 
+        mdatabse = FirebaseDatabase.getInstance().getReference().child("category");
+
+        mdatabse.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                int sportscheck =   dataSnapshot.child("sports").getValue(Integer.class);
+                int politicscheck = dataSnapshot.child("politics").getValue(Integer.class);
+                int btownchec = dataSnapshot.child("btown").getValue(Integer.class);
+                int hindicheck = dataSnapshot.child("hindi").getValue(Integer.class);
+                int worldcheck =dataSnapshot.child("world").getValue(Integer.class);
+                int techcheck = dataSnapshot.child("tech").getValue(Integer.class);
+
+                if(sportscheck!=sports)
+                {
+                 sports = sportscheck;
+                }
+
+                 if(politicscheck!=politics)
+                {
+                   politics= politicscheck;
+                }
+                 if(btownchec!=btown)
+                {
+                    btown = btownchec;
+                }
+                 if(hindicheck!=hindi)
+                {
+                    hindi = hindicheck;
+                }
+                 if(worldcheck!=world)
+                {
+                    world = worldcheck;
+                }
+                 if(techcheck!=tech)
+                {
+                    tech = techcheck;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
     private void getImages(){
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
-        mPlaceList = new int[]{R.drawable.techpush, R.drawable.worldpush, R.drawable.hindipush, R.drawable.politicspush, R.drawable.btownpush, R.drawable.sportspush};
+        mNames.add("WORLD");
+        mimages.add(R.drawable.worldpush);
+
+       // mPlaceList = new int[]{R.drawable.techpush, R.drawable.worldpush, R.drawable.hindipush, R.drawable.politicspush, R.drawable.btownpush, R.drawable.sportspush};
+
+        if(tech == 1) {
             mNames.add("TECH");
+            mimages.add(R.drawable.techpush);
+        }
+        if(world == 1) {
             mNames.add("WORLD");
+            mimages.add(R.drawable.worldpush);
+        }
+       if(hindi == 1) {
             mNames.add("HINDI");
+            mimages.add(R.drawable.hindipush);
+        }
+        if(sports == 1) {
             mNames.add("SPORTS");
+            mimages.add(R.drawable.sportspush);
+        }
+         if(politics == 1) {
             mNames.add("POLITICS");
+            mimages.add(R.drawable.politicspush);
+        }
+         if(btown == 1) {
             mNames.add("BTOWN");
+            mimages.add(R.drawable.btownpush);
+        }
+
+            mNames.add("BTOWN");
+            mimages.add(R.drawable.btownpush);
+
         initRecyclerView();
 
     }
@@ -106,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mPlaceList);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mimages);
         recyclerView.setAdapter(adapter);
     }
     @Override

@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.ArrayList;
 
 
@@ -24,12 +26,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     //vars
     private ArrayList<String> mNames = new ArrayList<>();
-    private int[] mPlaceList;
+    private ArrayList<Integer> mimages = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> names,int[] mPlaceList) {
+
+    public RecyclerViewAdapter(Context context, ArrayList<String> names, ArrayList<Integer> images) {
         mNames = names;
-        this.mPlaceList = mPlaceList;
+        mimages = images;
         mContext = context;
     }
 
@@ -41,8 +44,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+
         Log.d(TAG, "onBindViewHolder: called.");
-        holder.mPlace.setImageResource(mPlaceList[position]);
+
+        holder.mPlace.setImageResource(mimages.get(position));
         //holder.name.setText(mNames.get(position));
 
     }
@@ -60,7 +65,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ViewHolder(View itemView) {
             super(itemView);
             mPlace = itemView.findViewById(R.id.image_view);
-           // name = itemView.findViewById(R.id.name1);
         }
     }
 }
